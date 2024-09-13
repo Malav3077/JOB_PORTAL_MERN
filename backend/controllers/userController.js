@@ -116,7 +116,7 @@ export const getUser = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-export const updateProfile = catchAsyncErrors(async (req, res, next) => {
+export const updateProfile = catchAsyncErrors(async (req, res, next) => { 
   const newUserData = {
     name: req.body.name,
     email: req.body.email,

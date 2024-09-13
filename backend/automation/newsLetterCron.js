@@ -5,8 +5,8 @@ import { sendEmail } from "../utils/sendEmail.js";
 
 export const newsLetterCron = () => {
   cron.schedule("*/1 * * * *", async () => {
-    console.log("Running Cron Automation");
-    const jobs = await Job.find({ newsLettersSent: false });
+     console.log("Running Cron Automation");                         // this method are use to secudule in news latter automatic email generated using cron-automation 
+    const jobs = await Job.find({ newsLettersSent: false });  // if any reason our server is down so no effect of this cron - automation
     for (const job of jobs) {
       try {
         const filteredUsers = await User.find({

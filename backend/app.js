@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/",
+    tempFileDir: "/tmp/"
   })
 );
 
@@ -40,5 +40,6 @@ app.use("/api/v1/application", applicationRouter);
 newsLetterCron()
 connection();
 app.use(errorMiddleware);
+
 
 export default app;

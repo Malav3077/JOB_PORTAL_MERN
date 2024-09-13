@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
-  FaSquareXTwitter,
+  FaGithub,
   FaSquareInstagram,
   FaYoutube,
   FaLinkedin,
@@ -19,20 +19,20 @@ const Footer = () => {
         <div>
           <h4>Support</h4>
           <ul>
-            <li>Street No.007 Shahrah-e-Faisal Karachi, Pakistan</li>
-            <li>nichenest@gmail.com</li>
-            <li>+92 3106507521</li>
+            <li>D/204 Adishwarnagar Naroda,Ahemedabad-382330</li>
+            <li>malavparekh97@gmail.com</li>
+            <li>+92 7573051360</li>
           </ul>
         </div>
 
         <div>
           <h4>Quick Links</h4>
           <ul>
-            <li to={"/"}>
-              <Link>Home</Link>
+            <li>
+              <Link to={"/"}>Home</Link>
             </li>
-            <li to={"/jobs"}>
-              <Link>Jobs</Link>
+            <li>
+              <Link to={"/jobs"}>Jobs</Link>
             </li>
             {isAuthenticated && (
               <li>
@@ -45,42 +45,44 @@ const Footer = () => {
           <h4>Follow Us</h4>
           <ul>
             <li>
-              <Link to={"/"}>
+              <a href="https://github.com/Malav3077" target="_blank">
                 <span>
-                  <FaSquareXTwitter />
+                  <FaGithub />
                 </span>
-                <span>Twitter (X)</span>
-              </Link>
+                <span>Github (X)</span>
+              </a>
             </li>
             <li>
-              <Link to={"/"}>
+             <a href="https://www.instagram.com/malav_._3077._/" target="_blank">
                 <span>
                   <FaSquareInstagram />
                 </span>
                 <span>Instagram</span>
-              </Link>
+              </a>
             </li>
-            <li>
-              <Link to={"/"}>
+            {/* <li>
+              <a href="https://github.com/Malav3077" target="_blank">
+
                 <span>
                   <FaYoutube />
                 </span>
                 <span>Youtube</span>
-              </Link>
-            </li>
+              </a>
+            </li> */}
             <li>
-              <Link to={"/"}>
+                <a href="https://www.linkedin.com/in/malav-parekh-937139292/" target="_blank">
+
                 <span>
                   <FaLinkedin />
                 </span>
                 <span>LinkedIn</span>
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
       </footer>
       <div className="copyright">
-        &copy; CopyRight 2024. All Rights Reserved By CodeWithZeeshu
+        &copy; CopyRight 2024. All Rights Reserved By Malav
       </div>
     </>
   );

@@ -11,10 +11,9 @@ const userSlice = createSlice({
     message: null,
   },
   reducers: {
-    registerRequest(state, action) {
+    registerRequest(state) {
       state.loading = true;
       state.isAuthenticated = false;
-      state.user = {};
       state.error = null;
       state.message = null;
     },
@@ -22,20 +21,16 @@ const userSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload.user;
-      state.error = null;
       state.message = action.payload.message;
     },
     registerFailed(state, action) {
       state.loading = false;
       state.isAuthenticated = false;
-      state.user = {};
       state.error = action.payload;
-      state.message = null;
     },
-    loginRequest(state, action) {
+    loginRequest(state) {
       state.loading = true;
       state.isAuthenticated = false;
-      state.user = {};
       state.error = null;
       state.message = null;
     },
@@ -43,47 +38,35 @@ const userSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload.user;
-      state.error = null;
       state.message = action.payload.message;
     },
     loginFailed(state, action) {
       state.loading = false;
       state.isAuthenticated = false;
-      state.user = {};
       state.error = action.payload;
-      state.message = null;
     },
-    fetchUserRequest(state, action) {
+    fetchUserRequest(state) {
       state.loading = true;
-      state.isAuthenticated = false;
-      state.user = {};
-      state.error = null;
     },
     fetchUserSuccess(state, action) {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
-      state.error = null;
     },
     fetchUserFailed(state, action) {
       state.loading = false;
       state.isAuthenticated = false;
-      state.user = {};
       state.error = action.payload;
     },
-    logoutSuccess(state, action) {
+    logoutSuccess(state) {
       state.isAuthenticated = false;
       state.user = {};
-      state.error = null;
     },
     logoutFailed(state, action) {
-      state.isAuthenticated = state.isAuthenticated;
-      state.user = state.user;
       state.error = action.payload;
     },
-    clearAllErrors(state, action) {
+    clearAllErrors(state) {
       state.error = null;
-      state.user = state.user;
     },
   },
 });
@@ -92,7 +75,7 @@ export const register = (data) => async (dispatch) => {
   dispatch(userSlice.actions.registerRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/user/register",
+      "http://localhost:5001/api/v1/user/register",
       data,
       {
         withCredentials: true,
@@ -100,9 +83,8 @@ export const register = (data) => async (dispatch) => {
       }
     );
     dispatch(userSlice.actions.registerSuccess(response.data));
-    dispatch(userSlice.actions.clearAllErrors());
   } catch (error) {
-    dispatch(userSlice.actions.registerFailed(error.response.data.message));
+    dispatch(userSlice.actions.registerFailed(error.response?.data?.message));
   }
 };
 
@@ -110,7 +92,7 @@ export const login = (data) => async (dispatch) => {
   dispatch(userSlice.actions.loginRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/user/login",
+      "http://localhost:5001/api/v1/user/login",
       data,
       {
         withCredentials: true,
@@ -118,9 +100,8 @@ export const login = (data) => async (dispatch) => {
       }
     );
     dispatch(userSlice.actions.loginSuccess(response.data));
-    dispatch(userSlice.actions.clearAllErrors());
   } catch (error) {
-    dispatch(userSlice.actions.loginFailed(error.response.data.message));
+    dispatch(userSlice.actions.loginFailed(error.response?.data?.message));
   }
 };
 
@@ -128,29 +109,25 @@ export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.fetchUserRequest());
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/v1/user/getuser",
+      "http://localhost:5001/api/v1/user/getuser",
       {
         withCredentials: true,
       }
     );
     dispatch(userSlice.actions.fetchUserSuccess(response.data.user));
-    dispatch(userSlice.actions.clearAllErrors());
   } catch (error) {
-    dispatch(userSlice.actions.fetchUserFailed(error.response.data.message));
+    dispatch(userSlice.actions.fetchUserFailed(error.response?.data?.message));
   }
 };
+
 export const logout = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      "http://localhost:4000/api/v1/user/logout",
-      {
-        withCredentials: true,
-      }
-    );
+    await axios.get("http://localhost:5001/api/v1/user/logout", {
+      withCredentials: true,
+    });
     dispatch(userSlice.actions.logoutSuccess());
-    dispatch(userSlice.actions.clearAllErrors());
   } catch (error) {
-    dispatch(userSlice.actions.logoutFailed(error.response.data.message));
+    dispatch(userSlice.actions.logoutFailed(error.response?.data?.message));
   }
 };
 
